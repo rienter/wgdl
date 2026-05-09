@@ -17,7 +17,7 @@ cp wgdl ~/.local/bin/
 At the moment the only functionality is downloading all images in a thread:
 
 ```
-wgdl 1234567
+wgdl wg/1234567
 ```
 
 ## Roadmap
@@ -25,3 +25,4 @@ wgdl 1234567
 - [ ] add a TUI for selecting a thread interactively in the terminal
 - [ ] query threads for a word instead of passing the id of the thread
 - [ ] select the output directory
+- [X] extend this to other threads and media
