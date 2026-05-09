@@ -19,6 +19,16 @@ def draw_progress(actual: int, total: int):
     sys.stdout.flush()
 
 
+def path_string(title: str) -> str:
+    sanitized = ""
+    for c in title:
+        if c in [ " ", "/", "\\" ]:
+            sanitized += "_"
+        else:
+            sanitized += c
+    return sanitized
+
+
 # exit if no code was provided
 if len(sys.argv) < 2:
     sys.exit(USAGE)
@@ -44,7 +54,7 @@ for a in anchors:
             break
 
 total = len(images)
-dirname = (title if title != '' else 'wg')
+dirname = path_string(title if title != '' else 'wg')
 os.mkdir(dirname)
 draw_progress(0, total)
 for num, img in enumerate(images):
