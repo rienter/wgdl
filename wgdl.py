@@ -55,6 +55,7 @@ for a in anchors:
 total = len(media)
 dirname = path_string(title if title != '' else 'wg')
 os.mkdir(dirname)
+print("Downloading images to " + dirname)
 draw_progress(0, total)
 for num, media_file in enumerate(media):
     res = requests.get(media_file)
