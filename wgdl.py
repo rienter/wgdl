@@ -2,9 +2,11 @@ import bs4
 import os
 import requests
 import sys
+import argparse
 
-USAGE = """Usage: wgdl <board/code>
-This downloads all media from 4chan.org/<board>/thread/<code>"""
+USAGE = """Usage: wgdl [-d <target directory] <board/code>
+This downloads all media from 4chan.org/<board>/thread/<code>, optionally to
+the specified directory"""
 
 MEDIA_TYPE = ("png", "jpg", "jpeg", "webp", "webm", "gif", "mp4")
 
@@ -27,12 +29,22 @@ def path_string(title: str) -> str:
     return sanitized
 
 
-# exit if no code was provided
-if len(sys.argv) < 2:
-    sys.exit(USAGE)
+parser = argparse.ArgumentParser(
+        prog="wgdl",
+        description="Download images from a 4chan thread",
+        epilog="")
 
-[ board, thread ] = sys.argv[1].split("/", 1)
-link = "https://boards.4chan.org/" + board + "/thread/" + thread
+parser.add_argument("board", help="the short name for the board to download from")
+parser.add_argument("thread", help="code of the thread to downlaod from")
+parser.add_argument("-d", "--dir", help="download directory")
+
+# exit if no code was provided
+if len(sys.argv) < 3:
+    parser.print_help()
+    sys.exit()
+
+args = parser.parse_args()
+link = "https://boards.4chan.org/" + args.board + "/thread/" + args.thread
 
 res = requests.get(link)
 res.raise_for_status()
@@ -53,7 +65,7 @@ for a in anchors:
             break
 
 total = len(media)
-dirname = path_string(title if title != '' else 'wg')
+dirname = args.dir or path_string(title if title != '' else 'wg')
 os.mkdir(dirname)
 print("Downloading images to " + dirname)
 draw_progress(0, total)

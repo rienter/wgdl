@@ -24,5 +24,5 @@ wgdl wg/1234567
 
 - [ ] add a TUI for selecting a thread interactively in the terminal
 - [ ] query threads for a word instead of passing the id of the thread
-- [ ] select the output directory
+- [X] select the output directory
 - [X] extend this to other threads and media
