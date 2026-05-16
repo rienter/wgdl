@@ -14,10 +14,29 @@ cp wgdl ~/.local/bin/
 
 ## Usage
 
-At the moment the only functionality is downloading all images in a thread:
+```
+wgdl [-h] [-t THREAD] [-d DIR] [-l] board
+```
+
+### Get a list of threads on a board
+
+List all the threads in Wallpapers General
 
 ```
-wgdl wg/1234567
+wgdl -l wg
+```
+
+### Download images from a thread
+
+```
+wgdl wg -t 1234567
+```
+
+You can specify the output directory with `-d`, otherwise the thread title
+would be used.
+
+```
+wgdl -d walls wg -t 1234567
 ```
 
 ## Roadmap

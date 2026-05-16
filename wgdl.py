@@ -6,14 +6,7 @@ import argparse
 import re
 import json
 
-USAGE = """Usage: wgdl [-d <target directory] <board/code>
-This downloads all media from 4chan.org/<board>/thread/<code>, optionally to
-the specified directory"""
-
 MEDIA_TYPE = ("png", "jpg", "jpeg", "webp", "webm", "gif", "mp4")
-
-# TODO: write a terminal interface that lets user select a thread directly from
-# terminal, without the need to use a browser
 
 
 def draw_progress(actual: int, total: int):
@@ -64,8 +57,8 @@ def get_media_links(board: str, thread: str):
         href = a.get("href")
         if "http" not in href:
             href = "https:" + href
-        for it in MEDIA_TYPE:
-            if href.endswith(it):
+        for mt in MEDIA_TYPE:
+            if href.endswith(mt):
                 media.add(href)
                 break
     return media
